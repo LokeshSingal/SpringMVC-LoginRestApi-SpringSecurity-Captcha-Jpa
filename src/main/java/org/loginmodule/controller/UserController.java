@@ -1,8 +1,11 @@
 package org.loginmodule.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.loginmodule.model.User;
+import org.loginmodule.model.UserVO;
 import org.loginmodule.service.ICaptchaService;
 import org.loginmodule.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,37 +25,37 @@ public class UserController {
 
 	@Autowired
 	IUserService userService;
-	
+
 	@Autowired
 	ICaptchaService captchaService;
-	
-	
-	@RequestMapping(value="/signUp", method=RequestMethod.GET)
-	public ModelAndView showForm(){
-		return new ModelAndView("SignUp","user",new User());
+
+	@RequestMapping(value = "/signUp", method = RequestMethod.GET)
+	public ModelAndView showForm() {
+		return new ModelAndView("SignUp", "user", new UserVO());
 	}
-	
-	@RequestMapping(value="/captchaSignUp", method = RequestMethod.POST, produces = "application/json")
-	public User signUpUsingCaptcha(@ModelAttribute User user,
+
+	@RequestMapping(value = "/captchaSignUp", method = RequestMethod.POST, produces = "application/json")
+	public User signUpUsingCaptcha(@ModelAttribute UserVO user,
 			HttpServletRequest req) {
 		String response = req.getParameter("g-recaptcha-response");
 		String ip = req.getRemoteAddr();
 		captchaService.processResponse(response, ip);
+		// TODO - Need to fix UI, as of now default user is admin
+		user.setRoleId(1);
 		return userService.createUser(user);
-		
+
 	}
 
-	@RequestMapping(value="/signUp", method = RequestMethod.POST, produces = "application/json")
-	public User signUp(@RequestBody User user,
-			HttpServletRequest req) {
+	@RequestMapping(value = "/signUp", method = RequestMethod.POST, produces = "application/json")
+	public User signUp(@RequestBody UserVO user, HttpServletRequest req) {
 		return userService.createUser(user);
-		
+
 	}
 
 	@RequestMapping(value = "/{userId}", method = RequestMethod.PUT, produces = "application/json")
 	public User updateUser(@PathVariable("userId") Integer userId,
-			@RequestBody User user) {
-		user.setId(userId);
+			@RequestBody UserVO user) {
+		user.setUserId(userId);
 		return userService.updateUser(user);
 	}
 
@@ -65,5 +68,11 @@ public class UserController {
 	public void deleteUser(@PathVariable("userId") Integer userId) {
 		userService.deleteUser(userId);
 	}
+	
+	@RequestMapping(value="/list", method = RequestMethod.GET, produces = "application/json")
+    public List<User> getUserList() {
+        return userService.listUsers();
+    }
+
 
 }

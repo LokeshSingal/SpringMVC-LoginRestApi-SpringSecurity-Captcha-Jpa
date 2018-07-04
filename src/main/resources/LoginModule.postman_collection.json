@@ -1,0 +1,126 @@
+{
+	"variables": [],
+	"info": {
+		"name": "LoginModule",
+		"_postman_id": "b40322d4-677f-06a8-3bd2-ef70fa08ed30",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/user/1",
+			"request": {
+				"url": "http://localhost:8080/user/1",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic cm9vdDpyb290",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"email\":\"root\",\n\"password\":\"root\",\n\"firstName\":\"sdfsdf\",\n\"lastName\":\"jljsddfs\",\n\"contactNumber\":\"44545454757\",\n\"roleId\":1\n\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/user/signUp",
+			"request": {
+				"url": "http://localhost:8080/user/signUp",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"email\":\"root\",\n\"password\":\"root\",\n\"firstName\":\"Lokesh\",\n\"lastName\":\"Singal\",\n\"contactNumber\":\"8347224680\",\n\"roleId\":1\n\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/user/list",
+			"request": {
+				"url": "http://localhost:8080/user/list",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic cm9vdDpyb290",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"email\":\"root\",\n\"password\":\"root\",\n\"firstName\":\"sdfsdf\",\n\"lastName\":\"jljsddfs\",\n\"contactNumber\":\"44545454757\",\n\"roleId\":1\n\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/user/1",
+			"request": {
+				"url": "http://localhost:8080/user/1",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic cm9vdDE6cm9vdA==",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"email\":\"root\",\n\"password\":\"root\",\n\"firstName\":\"sdfsdf\",\n\"lastName\":\"jljsddfs\",\n\"contactNumber\":\"44545454757\",\n\"roleId\":1\n\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

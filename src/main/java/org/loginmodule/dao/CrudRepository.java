@@ -41,8 +41,8 @@ public abstract class CrudRepository<T> {
 		return entityManager.merge(object);
 	}
 	
-	public void delete(Object id){
-		entityManager.remove(id);
+	public void delete(Object objectId){
+		entityManager.remove(entityManager.find(clazz, objectId));
 	}
 	
 	public CriteriaBuilder getCriteriaBuilder() {
@@ -51,6 +51,18 @@ public abstract class CrudRepository<T> {
 	}
 	
 	public List<T> executeQuery(CriteriaQuery<T> query) {
+        return entityManager.createQuery(query).getResultList();
+    }
+	
+	 /**
+     * Returns the list of objects
+     *
+     * @return
+     */
+    public List<T> list() {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<T> query = cb.createQuery(clazz);
+        query.from(clazz);
         return entityManager.createQuery(query).getResultList();
     }
 	
