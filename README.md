@@ -1,11 +1,11 @@
 # SpringMVC-LoginRestApi-SpringSecurity-Captcha-Jpa
 
-Tools Required
+Tools Required 
 
-A. Mysql Database
-B. Eclipse
-C. Maven 3.0
-D. Java 1.8
+A. Mysql Database \
+B. Eclipse \
+C. Maven 3.0 \
+D. Java 1.8 
 
 
 Below are the highlights which you can get through this project
