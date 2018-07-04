@@ -1,15 +1,19 @@
 package org.loginmodule.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.loginmodule.model.User;
+import org.loginmodule.service.ICaptchaService;
 import org.loginmodule.service.IUserService;
-import org.loginmodule.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequestMapping("/user")
@@ -18,10 +22,30 @@ public class UserController {
 
 	@Autowired
 	IUserService userService;
+	
+	@Autowired
+	ICaptchaService captchaService;
+	
+	
+	@RequestMapping(value="/signUp", method=RequestMethod.GET)
+	public ModelAndView showForm(){
+		return new ModelAndView("SignUp","user",new User());
+	}
+	
+	@RequestMapping(value="/captchaSignUp", method = RequestMethod.POST, produces = "application/json")
+	public User signUpUsingCaptcha(@ModelAttribute User user,
+			HttpServletRequest req) {
+		String response = req.getParameter("g-recaptcha-response");
+		String ip = req.getRemoteAddr();
+		captchaService.processResponse(response, ip);
+		return userService.createUser(user);
+		
+	}
 
-	@RequestMapping(method = RequestMethod.POST, produces = "application/json")
-	public User createUser(@RequestBody User userReq) {
-		return userService.createUser(userReq);
+	@RequestMapping(value="/signUp", method = RequestMethod.POST, produces = "application/json")
+	public User signUp(@RequestBody User user,
+			HttpServletRequest req) {
+		return userService.createUser(user);
 		
 	}
 
